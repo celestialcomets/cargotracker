@@ -110,7 +110,7 @@ def add_spaceship():
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
     captains = execute_read_query(connection, sql)
-    if captainid in captains[id]:
+    if captainid in captains['id']:
         sql = "insert into spaceship(maxweight, captainid) values ('%s','%s')" % (maxweight, captainid)
         execute_query(connection, sql)
         return 'New Spaceship Added!'
@@ -129,7 +129,7 @@ def update_spaceship():
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
     captains = execute_read_query(connection, sql)
-    if captainid in captains[id]:
+    if captainid in captains['id']:
         sql = "UPDATE spaceship SET maxweight = '%s', captainid = '%s' WHERE id = '%s'" % (maxweight, captainid, id)
         execute_query(connection, sql)
         return f'Spaceship {id} Updated!'
@@ -176,10 +176,27 @@ def add_cargo():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "insert into cargo(weight, cargotype, shipid) values ('%s','%s','%s')" % (weight, cargotype, shipid)
-    execute_query(connection, sql)
-
-    return 'New Cargo Added!'
+    
+    sql = "select * from cargo"
+    cargos = execute_read_query(connection, sql)
+    current_weight = 0
+    for cargo in cargos:
+        if cargo['shipid'] == shipid:
+            current_weight += cargo['weight']
+    
+    sql = "select * from spaceship"
+    ships = execute_read_query(connection, sql)
+    max_weight = 0
+    for ship in ships:
+        if ship['id'] == shipid:
+            max_weight = ship['maxweight']
+    
+    if max_weight - current_weight > weight:
+        sql = "insert into cargo(weight, cargotype, shipid) values ('%s','%s','%s')" % (weight, cargotype, shipid)
+        execute_query(connection, sql)
+        return 'New Cargo Added!'
+    else:
+        return f'Not enough cargo space on ship {shipid}'
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
 @app.route('/api/cardo', methods=["PUT"])
