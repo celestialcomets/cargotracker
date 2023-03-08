@@ -40,7 +40,7 @@ def add_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "insert into captain(firstname, lastname, rank, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
+    sql = "insert into captain(firstname, lastname, `rank`, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
     execute_query(connection, sql)
 
     return 'New Captain Added!'
@@ -65,7 +65,7 @@ def update_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', rank = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
+    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', `rank` = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
     execute_query(connection, sql)
 
     return f'Captain {firstname} Updated!'
