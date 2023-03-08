@@ -2,7 +2,7 @@ import hashlib
 
 import flask
 from flask import jsonify
-from flask import request
+from flask import request, make_response
 
 from sql import create_con
 from sql import execute_query
