@@ -177,26 +177,29 @@ def add_cargo():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
-    sql = "select * from cargo"
-    cargos = execute_read_query(connection, sql)
-    current_weight = 0
-    for cargo in cargos:
-        if cargo['shipid'] == shipid:
-            current_weight += cargo['weight']
-    
     sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
-    max_weight = 0
-    for ship in ships:
-        if ship['id'] == shipid:
-            max_weight = ship['maxweight']
-    
-    if max_weight - current_weight > weight:
-        sql = "insert into cargo(weight, cargotype, shipid) values ('%s','%s','%s')" % (weight, cargotype, shipid)
-        execute_query(connection, sql)
-        return 'New Cargo Added!'
+    if shipid in ships['id']:
+        sql = "select * from cargo"
+        cargos = execute_read_query(connection, sql)
+        current_weight = 0
+        for cargo in cargos:
+            if cargo['shipid'] == shipid:
+                current_weight += cargo['weight']
+        
+        max_weight = 0
+        for ship in ships:
+            if ship['id'] == shipid:
+                max_weight = ship['maxweight']
+        
+        if max_weight - current_weight > weight:
+            sql = "insert into cargo(weight, cargotype, shipid) values ('%s','%s','%s')" % (weight, cargotype, shipid)
+            execute_query(connection, sql)
+            return 'New Cargo Added!'
+        else:
+            return f'Not enough cargo space on ship {shipid}'
     else:
-        return f'Not enough cargo space on ship {shipid}'
+        return f'Spaceship {shipid} does not exist!'
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
 @app.route('/api/cardo', methods=["PUT"])
