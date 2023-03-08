@@ -1,3 +1,5 @@
+import hashlib
+
 import flask
 from flask import jsonify
 from flask import request
@@ -10,6 +12,18 @@ import creds
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+
+masterPassword = "17caa840ab2c9794d76e1b4d4ab08bb983d626031e3699d5886b6f93bb187522"
+masterUsername = 'admin'
+
+@app.route('/authenticatedroute', methods=['GET'])
+def auth_test():
+    if request.authorization:
+        encoded = request.authorization.password.encode() #unicode encoding
+        hasedResult = hashlib.sha256(encoded) #hashing
+        if request.authorization.username == masterUsername and hasedResult.hexdigest() == masterPassword:
+            return '<h1> Authorized user access </h1>'
+    return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
 
 # CAPTAIN-RELATED APIS
 # this code uses the 'get' method to allow users to retrieve all captains in the captain database
