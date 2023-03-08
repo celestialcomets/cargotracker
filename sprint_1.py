@@ -8,7 +8,9 @@ import flask
 from flask import jsonify
 from flask import request
 
-# finished, need to test and write notes
+# CAPTAIN-RELATED APIS
+# this code uses the 'get' method to allow users to retrieve all captains in the captain database
+# along with all their information. no user_input is needed.
 @app.route('/api/captain', methods=["GET"])
 def view_all_captains():
     myCreds = creds.Creds()
@@ -17,7 +19,14 @@ def view_all_captains():
     users = execute_read_query(conn, sql)
     return jsonify(users)
 
-# finished, need to test and write notes
+# this code uses the 'post' method to allow users to add a captain to the captain database.
+# information for the new captain must be included in the body in this format:
+#{
+#    "firstname": "insert first name",
+#    "lastname": "insert last name",
+#    "rank": "insert ranking",
+#    "homeplanet": "insert home planet"
+# }
 @app.route('/api/captain', methods=["POST"])
 def add_captain():
     request_data = request.get_json()
@@ -28,12 +37,20 @@ def add_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "insert into captain(firstname, lastname, rank, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
+    sql = "insert into captain(firstname, lastname, `rank`, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
     execute_query(connection, sql)
 
     return 'New Captain Added!'
 
-# finished, need to test and write notes
+# this code uses the 'put' method to allow users to update captains in the captain database by id.
+# information for the captain to be updated must be included in the body in this format:
+#{
+#    "id": insert id, 
+#    "firstname": "insert first name",
+#    "lastname": "insert last name",
+#    "rank": "insert ranking",
+#    "homeplanet": "insert home planet"
+# }
 @app.route('/api/captain', methods=["PUT"])
 def update_captain():
     request_data = request.get_json()
@@ -45,12 +62,16 @@ def update_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', rank = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
+    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', `rank` = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
     execute_query(connection, sql)
 
     return f'Captain {firstname} Updated!'
 
-# finished, need to test and write notes
+# this code uses the 'delete' method to allow users to delete captains in the captain database by id.
+# information for the captain to be deleted must be included in the body in this format:
+#{
+#    "id": insert id
+# }
 @app.route('/api/captain', methods=['DELETE'])
 def delete_captain():
     request_data = request.get_json()
