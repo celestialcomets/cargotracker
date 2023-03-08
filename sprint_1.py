@@ -1,20 +1,23 @@
-import mysql.connector
-import creds
-from mysql.connector import Error
-from sql import create_con
-from sql import execute_query
-from sql import execute_read_query
 import flask
 from flask import jsonify
 from flask import request
+
+from sql import create_con
+from sql import execute_query
+from sql import execute_read_query
+
+import creds
+
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
 
 # finished, need to test and write notes
 @app.route('/api/captain', methods=["GET"])
 def view_all_captains():
     myCreds = creds.Creds()
-    conn = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
+    connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql ="select * from captain"
-    users = execute_read_query(conn, sql)
+    users = execute_read_query(connection, sql)
     return jsonify(users)
 
 # finished, need to test and write notes
@@ -28,7 +31,7 @@ def add_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "insert into captain(firstname, lastname, rank, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
+    sql = "insert into captain(firstname, lastname, `rank`, homeplanet) values ('%s','%s','%s', '%s')" % (firstname, lastname, rank, homeplanet)
     execute_query(connection, sql)
 
     return 'New Captain Added!'
@@ -45,7 +48,7 @@ def update_captain():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', rank = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
+    sql = "UPDATE captain SET firstname = '%s', lastname = '%s', `rank` = '%s', homeplanet = '%s' WHERE id = '%s'" % (firstname, lastname, rank, homeplanet, id)
     execute_query(connection, sql)
 
     return f'Captain {firstname} Updated!'
@@ -82,7 +85,7 @@ def add_spaceship():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
-    captains = execute_read_query(conn, sql)
+    captains = execute_read_query(connection, sql)
     if captainid in captains[id]:
         sql = "insert into spaceship(maxweight, captainid) values ('%s','%s')" % (maxweight, captainid)
         execute_query(connection, sql)
@@ -101,7 +104,7 @@ def update_spaceship():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
-    captains = execute_read_query(conn, sql)
+    captains = execute_read_query(connection, sql)
     if captainid in captains[id]:
         sql = "UPDATE spaceship SET maxweight = '%s', captainid = '%s' WHERE id = '%s'" % (maxweight, captainid, id)
         execute_query(connection, sql)
@@ -126,9 +129,9 @@ def delete_spaceship():
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
-    conn = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
+    connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql ="select * from cargo"
-    users = execute_read_query(conn, sql)
+    users = execute_read_query(connection, sql)
     return jsonify(users)
 
 # need to add code to ensure there's enough room on ship for cargo
