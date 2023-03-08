@@ -153,7 +153,11 @@ def delete_spaceship():
         
     return f"Spaceship {delete} Deleted!"
 
-# finished, add notes and test
+
+
+# CARGO-RELATED APIS
+# this code uses the 'get' method to allow users to retrieve all cargo in the cargo database
+# along with all their information. no user input is needed.
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
@@ -195,7 +199,11 @@ def update_cargo():
 
     return f'Cargo {id} Updated!'
 
-# finished, need to test and write notes
+# this code uses the 'delete' method to allow users to delete cargo in cargo database by id.
+# information for the cargo to be deleted must be included in the body in this format:
+#{
+#    "id": insert id
+# }
 @app.route('/api/cargo', methods=['DELETE'])
 def delete_cargo():
     request_data = request.get_json()
