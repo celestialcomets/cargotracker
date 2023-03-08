@@ -13,7 +13,7 @@ app.config["DEBUG"] = True
 
 # CAPTAIN-RELATED APIS
 # this code uses the 'get' method to allow users to retrieve all captains in the captain database
-# along with all their information. no user_input is needed.
+# along with all their information. no user input is needed.
 @app.route('/api/captain', methods=["GET"])
 def view_all_captains():
     myCreds = creds.Creds()
@@ -87,7 +87,10 @@ def delete_captain():
         
     return f"Captain {delete} Deleted!"
 
-# finished, need to test and write notes
+
+# SPACESHIP-RELATED APIS
+# this code uses the 'get' method to allow users to retrieve all spaceships in the spaceship database
+# along with all their information. no user input is needed.
 @app.route('/api/spaceship', methods=["GET"])
 def view_all_spaceships():
     myCreds = creds.Creds()
@@ -133,7 +136,11 @@ def update_spaceship():
     else:
         return f'There is no captain number {captainid}!'
 
-# finished, need to test and write notes
+# this code uses the 'delete' method to allow users to delete spaceships in the spaceship database by id.
+# information for the spaceship to be deleted must be included in the body in this format:
+#{
+#    "id": insert id
+# }
 @app.route('/api/spaceship', methods=['DELETE'])
 def delete_spaceship():
     request_data = request.get_json()
