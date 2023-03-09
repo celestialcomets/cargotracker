@@ -1,4 +1,6 @@
 import hashlib
+import datetime
+import time
 
 import flask
 from flask import jsonify
@@ -116,24 +118,30 @@ def view_all_spaceships():
     return jsonify(users)
 
 # finished, need to test and write notes
+# as of now, api is constantly returning else statement even if the captain exists
+# solution could be adding the captain ids to a list and searching if captainid is in the list
 @app.route('/api/spaceship', methods=["POST"])
 def add_spaceship():
     request_data = request.get_json()
-    maxweight = request_data['maxweight']
-    captainid = request_data['captainid']
+    maxweight = request_data['maxweight'] #requests maxweight for new entry
+    captainid = request_data['captainid'] #requests captainid for new entry
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "select * from captain"
+    sql = "select id from captain"
     captains = execute_read_query(connection, sql)
-    if captainid in captains['id']:
+        
+    if captainid in captains:
         sql = "insert into spaceship(maxweight, captainid) values ('%s','%s')" % (maxweight, captainid)
         execute_query(connection, sql)
         return 'New Spaceship Added!'
     else:
         return f'There is no captain number {captainid}!'
+    
 
 # finished, need to test and write notes
+# as of now, api is constantly returning else statement even if the captain exists
+# solution could be adding the captain ids to a list and searching if captainid is in the list
 @app.route('/api/spaceship', methods=["PUT"])
 def update_spaceship():
     request_data = request.get_json()
@@ -143,9 +151,9 @@ def update_spaceship():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "select * from captain"
+    sql = "select id from captain"
     captains = execute_read_query(connection, sql)
-    if captainid in captains['id']:
+    if captainid in captains:
         sql = "UPDATE spaceship SET maxweight = '%s', captainid = '%s' WHERE id = '%s'" % (maxweight, captainid, id)
         execute_query(connection, sql)
         return f'Spaceship {id} Updated!'
@@ -174,6 +182,8 @@ def delete_spaceship():
 # CARGO-RELATED APIS
 # this code uses the 'get' method to allow users to retrieve all cargo in the cargo database
 # along with all their information. no user input is needed.
+# as of right now, returning error "mktime argument is out of range"
+# error is most likely due to departure and arrival dates being far out
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
@@ -183,6 +193,7 @@ def view_all_cargo():
     return jsonify(users)
 
 # need to add code to ensure there's enough room on ship for cargo
+# as of right now, api is constantly returning "Spaceship does now exist!" error
 @app.route('/api/cargo', methods=["POST"])
 def add_cargo():
     request_data = request.get_json()
@@ -193,9 +204,9 @@ def add_cargo():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
-    sql = "select * from spaceship"
+    sql = "select id from spaceship"
     ships = execute_read_query(connection, sql)
-    if shipid in ships['id']:
+    if shipid in ships:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
         current_weight = 0
@@ -218,6 +229,7 @@ def add_cargo():
         return f'Spaceship {shipid} does not exist!'
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
+# as of right now, api is constantly returning "Spaceship does now exist!" error
 @app.route('/api/cardo', methods=["PUT"])
 def update_cargo():
     request_data = request.get_json()
@@ -231,9 +243,9 @@ def update_cargo():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
-    sql = "select * from spaceship"
+    sql = "select id from spaceship"
     ships = execute_read_query(connection, sql)
-    if shipid in ships['id']:
+    if shipid in ships:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
         current_weight = 0
