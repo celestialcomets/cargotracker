@@ -16,6 +16,8 @@ app.config["DEBUG"] = True
 masterPassword = "17caa840ab2c9794d76e1b4d4ab08bb983d626031e3699d5886b6f93bb187522"
 masterUsername = 'admin'
 
+# this api is handles the log in process. the username is "admin" and password is "CIS3368"
+# to test, go to the authorization tab, select basic authorization under type, then input credentials.
 @app.route('/authenticatedroute', methods=['GET'])
 def auth_test():
     if request.authorization:
