@@ -184,6 +184,7 @@ def delete_spaceship():
 # along with all their information. no user input is needed.
 # as of right now, returning error "mktime argument is out of range"
 # error is most likely due to departure and arrival dates being far out
+# importing datetime & time module didn't seem to affect it
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
@@ -194,6 +195,7 @@ def view_all_cargo():
 
 # need to add code to ensure there's enough room on ship for cargo
 # as of right now, api is constantly returning "Spaceship does now exist!" error
+# appending spaceship ids to a list could solve this
 @app.route('/api/cargo', methods=["POST"])
 def add_cargo():
     request_data = request.get_json()
@@ -230,6 +232,7 @@ def add_cargo():
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
 # as of right now, api is constantly returning "Spaceship does now exist!" error
+# appending spaceship ids to a list could solve this
 @app.route('/api/cardo', methods=["PUT"])
 def update_cargo():
     request_data = request.get_json()
