@@ -117,7 +117,7 @@ def view_all_spaceships():
     users = execute_read_query(conn, sql)
     return jsonify(users)
 
-# this code uses the 'post; method to allow users to add a new spaceship if an existing captain can be assigned to it
+# this code uses the 'post' method to allow users to add a new spaceship if an existing captain can be assigned to it
 # information for the spaceship to be added must be included in the body in this format:
 #{
 #   "maxweight": insert maxweight,
@@ -144,7 +144,7 @@ def add_spaceship():
     else:
         return f'There is no captain number {captainid}!'
     
-# this code uses the 'put; method to allow users to update an existing spaceship if an existing captain can be assigned to it
+# this code uses the 'put' method to allow users to update an existing spaceship if an existing captain can be assigned to it
 # information for the spaceship to be updated must be included in the body in this format:
 #{
 #   "id": insert id,    
@@ -205,7 +205,7 @@ def view_all_cargo():
     users = execute_read_query(connection, sql)
     return jsonify(users)
 
-# this code uses the 'post; method to allow users to add new cargo if an existing spaceship has room for it
+# this code uses the 'post' method to allow users to add new cargo if an existing spaceship has room for it
 #if the new cargo exceeds the desired spaceship's max weight capacity, the user will receive a notification
 # information for the cargo to be added must be included in the body in this format:
 #{
@@ -253,9 +253,8 @@ def add_cargo():
     
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
-# as of right now, api is constantly returning "Spaceship does not exist!" error
-# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from spaceship table
-@app.route('/api/cardo', methods=["PUT"])
+# code is giving updated success code but in mysql the table hasn't updated
+@app.route('/api/cargo', methods=["PUT"])
 def update_cargo():
     request_data = request.get_json()
     id = request_data['id']
@@ -264,13 +263,17 @@ def update_cargo():
     departure = request_data['departure']
     arrival = request_data['arrival']
     shipid = request_data['shipid']
+    ships_list = []
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
     sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
-    if shipid in ships:
+    for i in range(len(ships)):
+        ships_list.append(ships[i]["id"])
+
+    if shipid in ships_list:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
         current_weight = 0
