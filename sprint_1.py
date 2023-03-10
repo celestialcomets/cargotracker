@@ -252,13 +252,22 @@ def add_cargo():
         return f'Spaceship {shipid} does not exist!'
     
 
-# need to copy code that verifies maximum cargo weight hasn't been reached here
-# code is giving updated success code but in mysql the table hasn't updated
+# this code uses the 'put' method to allow users to update cargo if an existing spaceship has room for it
+# if the updated cargo exceeds the desired spaceship's max weight capacity, the user will receive a notification
+# information for the cargo to be updated must be included in the body in this format:
+#{
+#   "id": insert id,
+#   "cargotype": "insert cargo type",
+#   "weight": insert weight,
+#   "departure": "insert departure as YYYY-MM-DD",
+#   "arrival": "insert arrival as YYYY-MM-DD"
+#   "shipid": insert shipid
+# }
 @app.route('/api/cargo', methods=["PUT"])
 def update_cargo():
     request_data = request.get_json()
     id = request_data['id']
-    cargotype = ['cargotype']
+    cargotype = request_data['cargotype']
     weight = request_data['weight']
     departure = request_data['departure']
     arrival = request_data['arrival']
@@ -272,7 +281,7 @@ def update_cargo():
     ships = execute_read_query(connection, sql)
     for i in range(len(ships)):
         ships_list.append(ships[i]["id"])
-
+    
     if shipid in ships_list:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
@@ -289,11 +298,13 @@ def update_cargo():
         if max_weight - current_weight > weight:
             sql = "UPDATE cargo SET weight = '%s', cargotype = '%s', departure = '%s', arrival = '%s', shipid = '%s' WHERE id = '%s'" % (weight, cargotype, departure, arrival, shipid, id)
             execute_query(connection, sql)
-            return f'Cargo {id} Updated!'
+            return 'Cargo Updated!'
         else:
             return f'Not enough cargo space on ship {shipid}'
     else:
         return f'Spaceship {shipid} does not exist!'
+
+# sql = "UPDATE cargo SET weight = '%s', cargotype = '%s', departure = '%s', arrival = '%s', shipid = '%s' WHERE id = '%s'" % (weight, cargotype, departure, arrival, shipid, id)
 
 # this code uses the 'delete' method to allow users to delete cargo in cargo database by id.
 # information for the cargo to be deleted must be included in the body in this format:
