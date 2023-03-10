@@ -117,8 +117,12 @@ def view_all_spaceships():
     users = execute_read_query(conn, sql)
     return jsonify(users)
 
-# finished, need to test and write notes
-# SOLUTION: captains was returning nested dictionaries inside a list, so indexing further allowed the ids to be added to a list for comparison
+# this code uses the 'post; method to allow users to add a new spaceship if an existing captain can be assigned to it
+# information for the spaceship to be added must be included in the body in this format:
+#{
+#   "maxweight": insert maxweight,
+#   "captainid": insert captainid
+# }
 @app.route('/api/spaceship', methods=["POST"])
 def add_spaceship():
     request_data = request.get_json()
@@ -140,8 +144,6 @@ def add_spaceship():
     else:
         return f'There is no captain number {captainid}!'
     
-
-# finished, need to test and write notes
 # SOLUTION: captains was returning nested dictionaries inside a list, so indexing further allowed the ids to be added to a list for comparison
 @app.route('/api/spaceship', methods=["PUT"])
 def update_spaceship():
@@ -197,22 +199,24 @@ def view_all_cargo():
     users = execute_read_query(connection, sql)
     return jsonify(users)
 
-# need to add code to ensure there's enough room on ship for cargo
-# as of right now, api is constantly returning "Spaceship does not exist!" error
-# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from spaceship table
+# 
 @app.route('/api/cargo', methods=["POST"])
 def add_cargo():
     request_data = request.get_json()
     weight = request_data['weight']
     cargotype = request_data['cargotype']
     shipid = request_data['shipid']
+    ships_list = []
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
     sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
-    if shipid in ships:
+    for i in range(len(ships)):
+        ships_list.append(ships[i]["id"])
+    
+    if shipid in ships_list:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
         current_weight = 0
