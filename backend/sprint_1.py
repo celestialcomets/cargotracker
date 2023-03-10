@@ -27,6 +27,7 @@ masterUsername = 'admin'
 
 # this api is handles the log in process. the username is "admin" and password is "CIS3368"
 # to test, go to the authorization tab, select basic authorization under type, then input credentials.
+# referenced the securityapi.py file from class 6.
 @app.route('/authenticatedroute', methods=['GET'])
 def auth_test():
     if request.authorization:
