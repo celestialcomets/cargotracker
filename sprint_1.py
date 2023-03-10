@@ -118,20 +118,22 @@ def view_all_spaceships():
     return jsonify(users)
 
 # finished, need to test and write notes
-# as of now, api is constantly returning else statement even if the captain exists
-# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from captain table
+# SOLUTION: captains was returning nested dictionaries inside a list, so indexing further allowed the ids to be added to a list for comparison
 @app.route('/api/spaceship', methods=["POST"])
 def add_spaceship():
     request_data = request.get_json()
     maxweight = request_data['maxweight'] #requests maxweight for new entry
     captainid = request_data['captainid'] #requests captainid for new entry
+    captains_list = []
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
     captains = execute_read_query(connection, sql)
+    for i in range(len(captains)):
+        captains_list.append(captains[i]["id"])
     
-    if captainid in captains:
+    if captainid in captains_list:
         sql = "insert into spaceship(maxweight, captainid) values ('%s','%s')" % (maxweight, captainid)
         execute_query(connection, sql)
         return 'New Spaceship Added!'
@@ -228,6 +230,7 @@ def add_cargo():
             return f'Not enough cargo space on ship {shipid}'
     else:
         return f'Spaceship {shipid} does not exist!'
+    
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
 # as of right now, api is constantly returning "Spaceship does not exist!" error
