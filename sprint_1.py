@@ -142,20 +142,23 @@ def add_spaceship():
     
 
 # finished, need to test and write notes
-# as of now, api is constantly returning else statement even if the captain exists
-# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from captain table
+# SOLUTION: captains was returning nested dictionaries inside a list, so indexing further allowed the ids to be added to a list for comparison
 @app.route('/api/spaceship', methods=["PUT"])
 def update_spaceship():
     request_data = request.get_json()
     id = request_data['id']
     maxweight = request_data['maxweight']
     captainid = request_data['captainid']
+    captains_list = []
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "select * from captain"
     captains = execute_read_query(connection, sql)
-    if captainid in captains:
+    for i in range(len(captains)):
+        captains_list.append(captains[i]["id"])
+
+    if captainid in captains_list:
         sql = "UPDATE spaceship SET maxweight = '%s', captainid = '%s' WHERE id = '%s'" % (maxweight, captainid, id)
         execute_query(connection, sql)
         return f'Spaceship {id} Updated!'
