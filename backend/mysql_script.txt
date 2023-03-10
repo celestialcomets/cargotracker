@@ -8,7 +8,6 @@ lastname varchar(20) not null,
 `rank` varchar(20) not null,
 homeplanet varchar(50) not null
 )
-#id was originally set to be unsigned but removed characteristic due to potential errors
 
 // spaceship table
 create table if not exists spaceship (
