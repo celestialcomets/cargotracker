@@ -3,7 +3,7 @@
 # this private repository was created by emily, with katie as a collaborator, then
 # the repository was pushed to the github classroom repository.
 # a collection of all the commits can be found in the google doc:
-# https://docs.google.com/document/d/1UDb1ck0gyrJt-Pw7msPH6J016TSUh8Z5wuxiltBsbcs/edit
+# https://docs.google.com/document/d/1UDb1ck0gyrJt-Pw7msPH6J016TSUh8Z5wuxiltBsbcs/edit?usp=sharing
 
 import hashlib
 import datetime
