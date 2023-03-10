@@ -6,11 +6,11 @@ import flask
 from flask import jsonify
 from flask import request, make_response
 
-from sql import create_con
-from sql import execute_query
-from sql import execute_read_query
+from backend.sql import create_con
+from backend.sql import execute_query
+from backend.sql import execute_read_query
 
-import creds
+import backend.creds as creds
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
