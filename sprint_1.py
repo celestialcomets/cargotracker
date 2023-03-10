@@ -144,7 +144,13 @@ def add_spaceship():
     else:
         return f'There is no captain number {captainid}!'
     
-# SOLUTION: captains was returning nested dictionaries inside a list, so indexing further allowed the ids to be added to a list for comparison
+# this code uses the 'put; method to allow users to update an existing spaceship if an existing captain can be assigned to it
+# information for the spaceship to be updated must be included in the body in this format:
+#{
+#   "id": insert id,    
+#   "maxweight": insert maxweight,
+#   "captainid": insert captainid
+#}
 @app.route('/api/spaceship', methods=["PUT"])
 def update_spaceship():
     request_data = request.get_json()
