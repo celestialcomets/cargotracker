@@ -202,8 +202,6 @@ def delete_spaceship():
 # CARGO-RELATED APIS
 # this code uses the 'get' method to allow users to retrieve all cargo in the cargo database
 # along with all their information. no user input is needed.
-# as of right now, returning error "mktime argument is out of range"
-# importing datetime & time module didn't seem to affect it
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
@@ -310,8 +308,6 @@ def update_cargo():
             return f'Not enough cargo space on ship {shipid}'
     else:
         return f'Spaceship {shipid} does not exist!'
-
-# sql = "UPDATE cargo SET weight = '%s', cargotype = '%s', departure = '%s', arrival = '%s', shipid = '%s' WHERE id = '%s'" % (weight, cargotype, departure, arrival, shipid, id)
 
 # this code uses the 'delete' method to allow users to delete cargo in cargo database by id.
 # information for the cargo to be deleted must be included in the body in this format:
