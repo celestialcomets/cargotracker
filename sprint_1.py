@@ -205,7 +205,14 @@ def view_all_cargo():
     users = execute_read_query(connection, sql)
     return jsonify(users)
 
-# 
+# this code uses the 'post; method to allow users to add new cargo if an existing spaceship has room for it
+#if the new cargo exceeds the desired spaceship's max weight capacity, the user will receive a notification
+# information for the cargo to be added must be included in the body in this format:
+#{
+#   "weight": insert weight,
+#   "cargotype": "insert cargo type",
+#   "shipid": insert shipid
+# }
 @app.route('/api/cargo', methods=["POST"])
 def add_cargo():
     request_data = request.get_json()
