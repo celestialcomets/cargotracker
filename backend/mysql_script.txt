@@ -2,7 +2,7 @@
 
 // captain table
 create table if not exists captain (
-id int(6) auto_increment primary key,
+id int(6) unsigned auto_increment primary key,
 firstname varchar(20) not null,
 lastname varchar(20) not null,
 `rank` varchar(20) not null,
@@ -12,23 +12,21 @@ homeplanet varchar(50) not null
 
 // spaceship table
 create table if not exists spaceship (
-id int(6) auto_incrememnt primary key,
+id int(6) unsigned auto_incrememnt primary key,
 maxweight int not null,
-captainid int,
+captainid int unsigned,
 foreign key (captainid) references captain(id)
 )
-#id and captainid were originally set to be unsigned but removed characteristic due to potential errors
 
 // cargo table
 create table if not exists cargo (
-id int(6) auto_increment primary key,
+id int(6) unsigned auto_increment primary key,
 weight int not null,
 cargotype varchar(30) not null,
 departure date,
 arrival date,
-shipid int,
+shipid int unsigned,
 foreign key (shipid) references spaceship(id)
 )
-#id and shipid were originally set to be unsigned but removed characteristic due to potential errors
 
 # Loaded test data from example in instructions
