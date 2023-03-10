@@ -1,3 +1,10 @@
+# because both students could not commit to the same github classroom repository,
+# a private repository was made in order to allow both students to work remotely.
+# this private repository was created by emily, with katie as a collaborator, then
+# the repository was pushed to the github classroom repository.
+# a collection of all the commits can be found in the google doc:
+# https://docs.google.com/document/d/1UDb1ck0gyrJt-Pw7msPH6J016TSUh8Z5wuxiltBsbcs/edit
+
 import hashlib
 import datetime
 import time
