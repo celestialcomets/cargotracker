@@ -119,7 +119,7 @@ def view_all_spaceships():
 
 # finished, need to test and write notes
 # as of now, api is constantly returning else statement even if the captain exists
-# solution could be adding the captain ids to a list and searching if captainid is in the list
+# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from captain table
 @app.route('/api/spaceship', methods=["POST"])
 def add_spaceship():
     request_data = request.get_json()
@@ -128,9 +128,9 @@ def add_spaceship():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "select id from captain"
+    sql = "select * from captain"
     captains = execute_read_query(connection, sql)
-        
+    
     if captainid in captains:
         sql = "insert into spaceship(maxweight, captainid) values ('%s','%s')" % (maxweight, captainid)
         execute_query(connection, sql)
@@ -141,7 +141,7 @@ def add_spaceship():
 
 # finished, need to test and write notes
 # as of now, api is constantly returning else statement even if the captain exists
-# solution could be adding the captain ids to a list and searching if captainid is in the list
+# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from captain table
 @app.route('/api/spaceship', methods=["PUT"])
 def update_spaceship():
     request_data = request.get_json()
@@ -151,7 +151,7 @@ def update_spaceship():
 
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    sql = "select id from captain"
+    sql = "select * from captain"
     captains = execute_read_query(connection, sql)
     if captainid in captains:
         sql = "UPDATE spaceship SET maxweight = '%s', captainid = '%s' WHERE id = '%s'" % (maxweight, captainid, id)
@@ -183,7 +183,6 @@ def delete_spaceship():
 # this code uses the 'get' method to allow users to retrieve all cargo in the cargo database
 # along with all their information. no user input is needed.
 # as of right now, returning error "mktime argument is out of range"
-# error is most likely due to departure and arrival dates being far out
 # importing datetime & time module didn't seem to affect it
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
@@ -194,8 +193,8 @@ def view_all_cargo():
     return jsonify(users)
 
 # need to add code to ensure there's enough room on ship for cargo
-# as of right now, api is constantly returning "Spaceship does now exist!" error
-# appending spaceship ids to a list could solve this
+# as of right now, api is constantly returning "Spaceship does not exist!" error
+# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from spaceship table
 @app.route('/api/cargo', methods=["POST"])
 def add_cargo():
     request_data = request.get_json()
@@ -206,7 +205,7 @@ def add_cargo():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
-    sql = "select id from spaceship"
+    sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
     if shipid in ships:
         sql = "select * from cargo"
@@ -231,8 +230,8 @@ def add_cargo():
         return f'Spaceship {shipid} does not exist!'
 
 # need to copy code that verifies maximum cargo weight hasn't been reached here
-# as of right now, api is constantly returning "Spaceship does now exist!" error
-# appending spaceship ids to a list could solve this
+# as of right now, api is constantly returning "Spaceship does not exist!" error
+# solutions attemped: adding ids to list to compare against user input, creating new dictionary and searching for values, selecting only ids from spaceship table
 @app.route('/api/cardo', methods=["PUT"])
 def update_cargo():
     request_data = request.get_json()
@@ -246,7 +245,7 @@ def update_cargo():
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     
-    sql = "select id from spaceship"
+    sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
     if shipid in ships:
         sql = "select * from cargo"
