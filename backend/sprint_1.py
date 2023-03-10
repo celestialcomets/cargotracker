@@ -1,10 +1,3 @@
-# because both students could not commit to the same github classroom repository,
-# a private repository was made in order to allow both students to work remotely.
-# this private repository was created by emily, with katie as a collaborator, then
-# the repository was pushed to the github classroom repository.
-# a collection of all the commits can be found in the google doc:
-# https://docs.google.com/document/d/1UDb1ck0gyrJt-Pw7msPH6J016TSUh8Z5wuxiltBsbcs/edit?usp=sharing
-
 import hashlib
 import datetime
 import time
@@ -13,11 +6,11 @@ import flask
 from flask import jsonify
 from flask import request, make_response
 
-from backend.sql import create_con
-from backend.sql import execute_query
-from backend.sql import execute_read_query
+from sql import create_con
+from sql import execute_query
+from sql import execute_read_query
 
-import backend.creds as creds
+import creds
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -27,7 +20,6 @@ masterUsername = 'admin'
 
 # this api is handles the log in process. the username is "admin" and password is "CIS3368"
 # to test, go to the authorization tab, select basic authorization under type, then input credentials.
-# referenced the securityapi.py file from class 6.
 @app.route('/authenticatedroute', methods=['GET'])
 def auth_test():
     if request.authorization:
@@ -203,6 +195,8 @@ def delete_spaceship():
 # CARGO-RELATED APIS
 # this code uses the 'get' method to allow users to retrieve all cargo in the cargo database
 # along with all their information. no user input is needed.
+# as of right now, returning error "mktime argument is out of range"
+# importing datetime & time module didn't seem to affect it
 @app.route('/api/cargo', methods=["GET"])
 def view_all_cargo():
     myCreds = creds.Creds()
@@ -309,6 +303,8 @@ def update_cargo():
             return f'Not enough cargo space on ship {shipid}'
     else:
         return f'Spaceship {shipid} does not exist!'
+
+# sql = "UPDATE cargo SET weight = '%s', cargotype = '%s', departure = '%s', arrival = '%s', shipid = '%s' WHERE id = '%s'" % (weight, cargotype, departure, arrival, shipid, id)
 
 # this code uses the 'delete' method to allow users to delete cargo in cargo database by id.
 # information for the cargo to be deleted must be included in the body in this format:
