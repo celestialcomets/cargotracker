@@ -7,12 +7,16 @@ app.use(bodyParser.urlencoded());
 
 app.set('view engine', 'ejs');
 
+// the command below changes views to look in the frontend folder
+// typing in "node frontend/server.js" into the terminal will load the page
+app.set('views', 'frontend/views');
+
 app.get('/', function(req, res) {
     axios.get(`https://jsonplaceholder.typicode.com/users`)
     .then((response)=>{
         var users = response.data;
 
-         res.render('pages/login', {
+         res.render('login', {
              users: users
         });
     }); 
