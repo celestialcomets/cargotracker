@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Captain APIs</title>
+  <%- include('../partials/head'); %>
+</head>
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<body class="container">
+<main>
+  <div class="jumbotron">
+    <div id="current">
+      <h4>All Captain</h4>
+      <table class="table table-striped">
+        <tr>
+           <th>ID</th><th>First Name</th><th>Last Name</th><th>Rank</th><th>Home Planet</th>
+        </tr>
+        <% for (var i = 0; i < captain.length; i++) { %>
+          <tr>
+            <td><%= captain[i].id %></td>
+            <td><%= captain[i].firstname %></td>
+            <td><%= captain[i].lastname %></td>
+            <td><%= captain[i].rank %></td>
+            <td><%= captain[i].homeplanet %></td>
+          </tr>   
+        <% } %>
+     </table>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

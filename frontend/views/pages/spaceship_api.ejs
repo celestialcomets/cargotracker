@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Captain APIs</title>
+  <%- include('../partials/head'); %>
+</head>
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<body class="container">
+<main>
+  <div class="jumbotron">
+    <div id="current">
+      <h4>All Spaceships</h4>
+      <table class="table table-striped">
+        <tr>
+           <th>ID</th><th>Max Cargo Weight</th><th>Captain ID</th>
+        </tr>
+        <% for (var i = 0; i < ship.length; i++) { %>
+          <tr>
+            <td><%= ship[i].id %></td>
+            <td><%= ship[i].maxweight %></td>
+            <td><%= ship[i].captainid %></td>
+          </tr>   
+        <% } %>
+     </table>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

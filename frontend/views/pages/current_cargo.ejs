@@ -5,6 +5,10 @@
   <%- include('../partials/head'); %>
 </head>
 
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
 <body class="container">
 <main>
   <div class="jumbotron">
@@ -15,7 +19,20 @@
       <input type="checkbox" id="toggle" onclick="myFunction()">
       <span class="slider round"></span>
     </label>
-    <br>
+    <div>
+      <p> </p>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='http://localhost:8080/cargo';">Edit Cargo</button>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='http://localhost:8080/captains';">Edit Captains</button>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='http://localhost:8080/spaceships';">Edit Spaceships</button>
+      </div>
+    </div>
     <br>
     <div id="current">
       <h4>Current Cargo</h4>

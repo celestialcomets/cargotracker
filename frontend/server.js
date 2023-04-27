@@ -31,26 +31,72 @@ app.post('/process_login', function(req, res){
         auth: {
           username: user,
           password: pass
-        }
-    }),
-    axios.get('http://127.0.0.1:5000/api/cargo')])
+        } 
+    }), axios.get('http://127.0.0.1:5000/api/cargo')])
     .then(axios.spread((firstResponse, secondResponse) => {  
         // secondResponse returns the cargo data.
         var cargoData = secondResponse.data;
         
         // if login was successful, loads cargo page with data from cargo get api
         // and sends success message to console.
-        res.render('pages/cargo', {
+        res.render('pages/current_cargo', {
             cargo: cargoData,
         });
         console.log('Authenticated');
         // if login was unsucessful, loads the login page again
         // and sends failure message to console.
-        })).catch(function(error) {
-            res.render("pages/login")
-            console.log('Error on Authentication');
+    })).catch(function(error) {
+        res.render("pages/login")
+        console.log('Error on Authentication');
+    });
+});
+
+app.get('/home', function(req, res) {
+    axios.get('http://127.0.0.1:5000/api/cargo')
+    .then((response)=>{
+        let cargoData = response.data;
+
+        res.render('pages/current_cargo', {
+            cargo: cargoData
         });
     });
+});
+
+// CARGO APIS
+app.get('/cargo', function(req, res) {
+    axios.get('http://127.0.0.1:5000/api/cargo')
+    .then((response)=>{
+        let cargoData = response.data;
+
+        res.render('pages/cargo_api', {
+            cargo: cargoData
+        });
+    });
+});
+
+// CAPTAIN APIS
+app.get('/captains', function(req, res) {
+    axios.get('http://127.0.0.1:5000/api/captain')
+    .then((response)=>{
+        let captainData = response.data;
+
+        res.render('pages/captain_api', {
+            captain: captainData
+        });
+    });
+});
+
+// SPACESHIP APIS
+app.get('/spaceships', function(req, res) {
+    axios.get('http://127.0.0.1:5000/api/spaceship')
+    .then((response)=>{
+        let shipData = response.data;
+
+        res.render('pages/spaceship_api', {
+            ship: shipData
+        });
+    });
+});
     
 app.listen(8080);
 console.log('8080 is the magic port');
