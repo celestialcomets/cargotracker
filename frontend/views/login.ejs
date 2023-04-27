@@ -14,14 +14,19 @@
 
 <main>
   <div class="jumbotron">
-    <% if (locals.auth) { %>
-       WELCOME <%= user %>
-    <% } %>
-    <% if (!locals.auth) { %>
-        <%= user %>
-        <br>
-        YOU ARE NOT AUTHORIZED
-    <% } %>
+    <form action="/process_login" method="POST">
+      <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label">User name</label>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
+          autofocus>
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
+          required>
+       </div>
+      <input class="btn btn-lg btn-primary btn-block" type="submit">
+  </form>
   </div>
 </main>
 
