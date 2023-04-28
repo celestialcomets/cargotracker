@@ -326,7 +326,7 @@ app.get('/spaceships', function(req, res) {
         let shipData = response.data;
 
         res.render('pages/spaceship_api', {
-            spaceship: shipData,
+            ship: shipData,
             message: null,
             post_style: "none",
             put_style: "none",
@@ -338,11 +338,11 @@ app.get('/spaceships', function(req, res) {
 // when a post request is pushed by submitting the action="/spaceship" form, the max weight and captainid
 // that was submitted through the form are sent to the spaceship post api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/spaceship', function(req, res) {
-    var maxweight = req.body.put_maxweight;
-    var captainid = req.body.put_captainid;
+app.post('/spaceships', function(req, res) {
+    var maxweight = req.body.post_weight;
+    var captainid = req.body.post_captainid;
 
-    axios.all([axios.put('http://127.0.0.1:5000/api/spaceship', {
+    axios.all([axios.post('http://127.0.0.1:5000/api/spaceship', {
         maxweight: maxweight,
         captainid: captainid
       }), axios.get('http://127.0.0.1:5000/api/spaceship')])
@@ -351,11 +351,11 @@ app.post('/spaceship', function(req, res) {
         var message = firstResponse.data;
 
         res.render('pages/spaceship_api', {
-            post_style: "none",
-            put_style: "block",
+            post_style: "block",
+            put_style: "none",
             delete_style: "none",
             message: message,
-            spaceship: shipData
+            ship: shipData
         });
         console.log(message);
     })).catch(function(error) {
@@ -364,7 +364,7 @@ app.post('/spaceship', function(req, res) {
             put_style: "block",
             delete_style: "none",
             message: "Try again!",
-            spaceship: shipData
+            ship: shipData
         });
     });
 });
@@ -372,9 +372,9 @@ app.post('/spaceship', function(req, res) {
 // when a post request is pushed by submitting the action="/spaceship_PUT" form, the id, max weight and captainid
 // that was submitted through the form are sent to the spaceship put api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/spaceship_PUT', function(req, res) {
+app.post('/spaceships_PUT', function(req, res) {
     var id = req.body.put_id;
-    var maxweight = req.body.put_maxweight;
+    var maxweight = req.body.put_weight;
     var captainid = req.body.put_captainid;
 
     axios.all([axios.put('http://127.0.0.1:5000/api/spaceship', {
@@ -391,7 +391,7 @@ app.post('/spaceship_PUT', function(req, res) {
             put_style: "block",
             delete_style: "none",
             message: message,
-            spaceship: shipData
+            ship: shipData
         });
         console.log(message);
     })).catch(function(error) {
@@ -400,7 +400,7 @@ app.post('/spaceship_PUT', function(req, res) {
             put_style: "block",
             delete_style: "none",
             message: "Try again!",
-            spaceship: shipData
+            ship: shipData
         });
     });
 });
@@ -408,7 +408,7 @@ app.post('/spaceship_PUT', function(req, res) {
 // when a post request is pushed by submitting the action="/spaceship_DELETE" form, the id
 // that was submitted through the form are sent to the spaceship delete api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/spaceship_DELETE', function(req, res) {
+app.post('/spaceships_DELETE', function(req, res) {
     var id = req.body.delete_id;
 
     axios.all([axios.delete('http://127.0.0.1:5000/api/spaceship', { data: { id: id } 
@@ -422,7 +422,7 @@ app.post('/spaceship_DELETE', function(req, res) {
             put_style: "none",
             delete_style: "block",
             message: message,
-            spaceship: shipData
+            ship: shipData
         });
         console.log(message);
     })).catch(function(error) {
@@ -431,7 +431,7 @@ app.post('/spaceship_DELETE', function(req, res) {
             put_style: "none",
             delete_style: "block",
             message: "Try again!",
-            spaceship: shipData
+            ship: shipData
         });
     });
 });

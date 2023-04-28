@@ -12,7 +12,7 @@
 <body class="container">
 <main>
   <div class="jumbotron">
-    <div id="current">
+    <div id="GET">
       <h4>All Spaceships</h4>
       <table class="table table-striped">
         <tr>
@@ -25,9 +25,82 @@
           </tr>   
         <% } %>
      </table>
+     <div class="card-body">
+      <form action="/spaceships" class="form-horizontal" method="GET">
+      <button type="submit" class="btn btn-primary">Reload Spaceships</button>
+      </form>
     </div>
-  </div>
+    </div>
+    <div id="POST">
+	    <div class="card mt-3">
+        <div class="card-header">
+          Add Spaceship
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= post_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/spaceships" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="post_weight">Max Weight</label>
+              <input class="form-control" type="number" id="post_weight" name="post_weight" placeholder="Enter Ship's Maximum Weight" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="post_captainid" class="control-label col-sm-2">Captain ID</label>
+              <input type="number" id="post_captainid" name="post_captainid" class="form-control" placeholder="Enter Ship's Captain's ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Spaceship</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="PUT">
+      <div class="card mt-3">
+        <div class="card-header">
+          Update Spaceship
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= put_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/spaceships_PUT" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="put_id">Ship ID</label>
+              <input class="form-control" type="number" id="put_id" name="put_id" placeholder="Enter Ship's ID" required autofocus>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="put_weight">Max Weight</label>
+              <input class="form-control" type="number" id="put_weight" name="put_weight" placeholder="Enter Ship's Maximum Weight" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="put_captainid" class="control-label col-sm-2">Captain ID</label>
+              <input type="number" id="put_captainid" name="put_captainid" class="form-control" placeholder="Enter Ship's Captain's ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Spaceship</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="DELETE">
+      <div class="card mt-3">
+        <div class="card-header">
+          Delete Spaceship
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= delete_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/spaceships_DELETE" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="delete_id">Ship ID</label>
+              <input class="form-control" type="number" id="delete_id" name="delete_id" placeholder="Enter Ship ID" required autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Delete Spaceship</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
 </main>
-
 </body>
 </html>

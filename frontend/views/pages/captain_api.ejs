@@ -12,8 +12,8 @@
 <body class="container">
 <main>
   <div class="jumbotron">
-    <div id="current">
-      <h4>All Captain</h4>
+    <div id="GET">
+      <h4>All Captains</h4>
       <table class="table table-striped">
         <tr>
           <th>First Name</th><th>Last Name</th><th>Rank</th><th>Home Planet</th>
@@ -27,6 +27,11 @@
           </tr>   
         <% } %>
      </table>
+     <div class="card-body">
+      <form action="/captains" class="form-horizontal" method="GET">
+      <button type="submit" class="btn btn-primary">Reload Captains</button>
+      </form>
+    </div>
     </div>
     <div id="POST">
 	    <div class="card mt-3">
@@ -70,7 +75,7 @@
         <div class="card-body">
           <form action="/captains_PUT" class="form-horizontal" method="POST">
             <div class="form-group">
-              <label class="control-label col-sm-2" for="put_id">ID</label>
+              <label class="control-label col-sm-2" for="put_id">Captain ID</label>
               <input class="form-control" type="number" id="put_id" name="put_id" placeholder="Enter Captain's ID" required autofocus>
             </div>
             <div class="form-group">
@@ -89,7 +94,7 @@
               <label for="put_planet" class="control-label col-sm-2">Home Planet</label>
               <input type="text" id="put_planet" name="put_planet" class="form-control" placeholder="Enter Captain's Home Planet" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Captain</button>
+            <button type="submit" class="btn btn-primary">Update Captain</button>
           </form>
         </div>
       </div>

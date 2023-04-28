@@ -136,7 +136,9 @@ def view_all_spaceships():
 def add_spaceship():
     request_data = request.get_json()
     maxweight = request_data['maxweight'] #requests maxweight for new entry
+    maxweight = int(maxweight)
     captainid = request_data['captainid'] #requests captainid for new entry
+    captainid = int(captainid)
     captains_list = []
 
     myCreds = creds.Creds()
@@ -164,8 +166,11 @@ def add_spaceship():
 def update_spaceship():
     request_data = request.get_json()
     id = request_data['id']
+    id = int(id)
     maxweight = request_data['maxweight']
+    maxweight = int(maxweight)
     captainid = request_data['captainid']
+    captainid = int(captainid)
     captains_list = []
 
     myCreds = creds.Creds()
