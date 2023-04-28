@@ -16,11 +16,10 @@
 	    <h4>All Cargo</h4>
       <table class="table table-striped">
         <tr>
-           <th>ID</th><th>Weight</th><th>Cargo Type</th><th>Departure</th><th>Arrival</th><th>Ship ID</th>
+           <th>Weight</th><th>Cargo Type</th><th>Departure</th><th>Arrival</th><th>Ship ID</th>
         </tr>
         <% for (var i = 0; i < cargo.length; i++) { %>
           <tr>
-            <td><%= cargo[i].id %></td>
             <td><%= cargo[i].weight %></td>
             <td><%= cargo[i].cargotype %></td>
             <td><%= cargo[i].departure %></td>
