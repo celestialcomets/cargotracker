@@ -223,8 +223,10 @@ def view_all_cargo():
 def add_cargo():
     request_data = request.get_json()
     weight = request_data['weight']
+    weight = int(weight)
     cargotype = request_data['cargotype']
     shipid = request_data['shipid']
+    shipid = int(shipid)
     ships_list = []
     
     myCreds = creds.Creds()
@@ -233,7 +235,7 @@ def add_cargo():
     ships = execute_read_query(connection, sql)
     
     for i in range(len(ships)):
-        ships_list.append(ships[i]["id"])
+        ships_list.append(int(ships[i]["id"]))
     
     if shipid in ships_list:
         sql = "select * from cargo"
