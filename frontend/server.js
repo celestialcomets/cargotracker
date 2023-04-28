@@ -72,7 +72,8 @@ app.get('/cargo', function(req, res) {
             message: null,
             cargo: cargoData,
             post_style: "none",
-            put_style: "none"
+            put_style: "none",
+            delete_style: "none"
         });
     });
 });
@@ -94,6 +95,7 @@ app.post('/cargo', function(req, res) {
         res.render('pages/cargo_api', {
             post_style: "block",
             put_style: "none",
+            delete_style: "none",
             message: message,
             cargo: cargoData
         });
@@ -102,6 +104,7 @@ app.post('/cargo', function(req, res) {
         res.render('pages/cargo_api', {
             post_style: "block",
             put_style: "none",
+            delete_style: "none",
             message: "Try again!",
             cargo: cargoData
         });
@@ -131,6 +134,7 @@ app.post('/cargo_PUT', function(req, res) {
         res.render('pages/cargo_api', {
             post_style: "none",
             put_style: "block",
+            delete_style: "none",
             message: message,
             cargo: cargoData
         });
@@ -139,12 +143,40 @@ app.post('/cargo_PUT', function(req, res) {
         res.render('pages/cargo_api', {
             post_style: "none",
             put_style: "block",
+            delete_style: "none",
             message: "Try again!",
             cargo: cargoData
         });
     });
 }); 
 
+app.post('/cargo_DELETE', function(req, res) {
+    var id = req.body.delete_id;
+
+    axios.all([axios.delete('http://127.0.0.1:5000/api/cargo', { data: { id: id } 
+    }), axios.get('http://127.0.0.1:5000/api/cargo')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var cargoData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/cargo_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: message,
+            cargo: cargoData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/cargo_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: "Try again!",
+            cargo: cargoData
+        });
+    });
+});
 
 // CAPTAIN APIS
 app.get('/captains', function(req, res) {

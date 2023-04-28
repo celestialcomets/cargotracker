@@ -28,7 +28,12 @@
             <td><%= cargo[i].shipid %></td>
           </tr>  
         <% } %>
-     </table>
+      </table>
+      <div class="card-body">
+        <form action="/cargo" class="form-horizontal" method="GET">
+        <button type="submit" class="btn btn-primary">Reload Cargo</button>
+        </form>
+      </div>
     </div>
     <div id="POST">
 	    <div class="card mt-3">
@@ -52,7 +57,7 @@
               <label for="post_ship" class="control-label col-sm-2">Ship ID</label>
               <input type="text" id="post_ship" name="post_ship" class="form-control" placeholder="Enter Ship ID" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Add Cargo</button>
           </form>
         </div>
       </div>
@@ -91,12 +96,29 @@
               <label for="put_shipid" class="control-label col-sm-2">Ship ID</label>
               <input type="number" id="put_shipid" name="put_shipid" class="form-control" placeholder="Enter Ship ID" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Update Cargo</button>
           </form>
         </div>
       </div>
     </div>
     <div id="DELETE">
+      <div class="card mt-3">
+        <div class="card-header">
+          Delete Cargo
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= delete_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/cargo_DELETE" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="delete_id">Cargo ID</label>
+              <input class="form-control" type="number" id="delete_id" name="delete_id" placeholder="Enter Cargo ID" required autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Delete Cargo</button>
+          </form>
+        </div>
+      </div>
     </div>
 </div>
 </main>

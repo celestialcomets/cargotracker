@@ -317,12 +317,12 @@ def update_cargo():
 def delete_cargo():
     request_data = request.get_json()
     delete = request_data['id']
-    
+   
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
     sql = "delete from cargo where id = %s" % (delete)
     execute_query(connection, sql)
-        
+       
     return f"Cargo {delete} Deleted!"
 
 app.run()
