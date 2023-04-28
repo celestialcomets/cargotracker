@@ -64,7 +64,7 @@ app.get('/home', function(req, res) {
 });
 
 // CARGO APIS
-// when a get request is pushed, the data from our get_all_cargo() from the backend
+// when a get request is pushed, the data from our view_all_cargo() from the backend
 // is returned into cargoData and rendered on the table on the cargo page
 app.get('/cargo', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/cargo')
@@ -81,7 +81,7 @@ app.get('/cargo', function(req, res) {
     });
 });
 
-// when a post request is pushed by submittimg the post form, the weight, cargotype, and shipid
+// when a post request is pushed by submitting the action="/cargo" form, the weight, cargotype, and shipid
 // that was submitted through the form are sent to the cargo post api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo', function(req, res) {
@@ -117,7 +117,7 @@ app.post('/cargo', function(req, res) {
     });
 }); 
 
-// when a post request is pushed by submittimg the put form, the id, weight, cargotype, departure, arrival and shipid
+// when a post request is pushed by submitting the action="/cargo_PUT" form, the id, weight, cargotype, departure, arrival and shipid
 // that was submitted through the form are sent to the cargo put api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo_PUT', function(req, res) {
@@ -159,8 +159,8 @@ app.post('/cargo_PUT', function(req, res) {
     });
 }); 
 
-// when a post request is pushed by submittimg the delete form, the id
-// that was submitted through the form are sent to the cargo put api.
+// when a post request is pushed by submitting the action="/cargo_delete" form, the id
+// that was submitted through the form are sent to the cargo delete api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo_DELETE', function(req, res) {
     var id = req.body.delete_id;
@@ -191,6 +191,8 @@ app.post('/cargo_DELETE', function(req, res) {
 });
 
 // CAPTAIN APIS
+// when a get request is pushed, the data from our view_all_captains() from the backend
+// is returned into captainData and rendered on the table on the captains page
 app.get('/captains', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/captain')
     .then((response)=>{
@@ -202,6 +204,9 @@ app.get('/captains', function(req, res) {
     });
 });
 
+// when a post request is pushed by submitting the action="/captain" form, the first name, last name, rank, and homeplanet
+// that was submitted through the form are sent to the captain post api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/captain', function(req, res) {
     var post_firstname = req.body.post_firstname;
     var post_lastname = req.body.post_lastname;
@@ -237,6 +242,9 @@ app.post('/captain', function(req, res) {
     });
 }); 
 
+// when a post request is pushed by submitting the action="/captain_PUT" form, the first name, last name, rank, and homeplanet
+// that was submitted through the form are sent to the captain put api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/captain_PUT', function(req, res) {
     var id = req.body.put_id;
     var firstname = req.body.put_firstname;
@@ -274,6 +282,9 @@ app.post('/captain_PUT', function(req, res) {
     });
 });
 
+// when a post request is pushed by submitting the action="/captain_DELETE" form, the id
+// that was submitted through the form are sent to the captain delete api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/captain_DELETE', function(req, res) {
     var id = req.body.delete_id;
 
@@ -303,6 +314,8 @@ app.post('/captain_DELETE', function(req, res) {
 });
 
 // SPACESHIP APIS
+// when a get request is pushed, the data from our view_all_cargo() from the backend
+// is returned into cargoData and rendered on the table on the cargo page
 app.get('/spaceships', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/spaceship')
     .then((response)=>{
@@ -314,6 +327,9 @@ app.get('/spaceships', function(req, res) {
     });
 });
 
+// when a post request is pushed by submitting the action="/spaceship" form, the max weight and captainid
+// that was submitted through the form are sent to the spaceship post api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/spaceship', function(req, res) {
     var maxweight = req.body.put_maxweight;
     var captainid = req.body.put_captainid;
@@ -345,6 +361,9 @@ app.post('/spaceship', function(req, res) {
     });
 });
 
+// when a post request is pushed by submitting the action="/spaceship_PUT" form, the id, max weight and captainid
+// that was submitted through the form are sent to the spaceship put api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/spaceship_PUT', function(req, res) {
     var id = req.body.put_id;
     var maxweight = req.body.put_maxweight;
@@ -378,6 +397,9 @@ app.post('/spaceship_PUT', function(req, res) {
     });
 });
 
+// when a post request is pushed by submitting the action="/spaceship_DELETE" form, the id
+// that was submitted through the form are sent to the spaceship delete api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/spaceship_DELETE', function(req, res) {
     var id = req.body.delete_id;
 
