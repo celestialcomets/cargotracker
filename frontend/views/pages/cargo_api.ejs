@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>Cargo APIs</title>
+  <script src="../../server.js"></script>
   <%- include('../partials/head'); %>
 </head>
 
@@ -29,11 +30,11 @@
           </tr>   
         <% } %>
      </table>
-     <div id="put">
-     <form class="form-horizontal" action="/cargo" method="POST">
-      <div class="container" id="POST">
+     <div class="container">
+     <div class="row">
+     <class="col-sm-6" id="POST"></div>
         <h4>Add New Cargo</h4>
-        <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= style %>;">
+        <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= post_style %>;">
           <%= message %>
         </div>
         <form action="/cargo" class="form-horizontal" method="POST">
@@ -62,12 +63,31 @@
           </div>
         </form>
      </div>
-     <div id="PUT">
-      <p>put method</p>
-     </div>
-     <div id="DELETE">
-      <p>delete method</p>
-     </div>
+     <div class="card mt-3">
+      <div class="card-header">Update Cargo</div>
+      <div class="card-body">
+        <div class="form-group">
+          <input type="number" class="form-control" id="put_id" placeholder="Id">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="put_type" placeholder="Title">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="put_weight" placeholder="Description">
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" id="put_departure" placeholder="Departure">
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" id="put_arrival" placeholder="Arrival">
+        </div>
+        <div class="form-group">
+          <input type="number" class="form-control" id="put_ship" placeholder="Ship ID">
+        </div>
+        <div class="form-group mt-2">
+          <button class="btn btn-sm btn-primary" onclick="putData()">Update Data</button>
+        </div>
+      </div>
     </div>
   </div>
 </main>
