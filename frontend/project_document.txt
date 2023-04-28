@@ -2,8 +2,6 @@ Katie To (ID: 2026435) & Emily Meng (ID: 2060798)
 
 # Sprint 2 Project Document
 
-a collection of all the commits can be found in the google doc:
-
 ### TABLE CREATION ####
 - Captain table commands: written by Emily
 - Spaceship table commands: written by Emily
