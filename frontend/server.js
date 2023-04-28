@@ -39,7 +39,7 @@ app.post('/process_login', function(req, res){
         
         // if login was successful, loads cargo page with data from cargo get api
         // and sends success message to console.
-        res.redirect('pages/current_cargo', {
+        res.render('pages/current_cargo', {
             cargo: cargoData,
         });
         console.log('Authenticated');
