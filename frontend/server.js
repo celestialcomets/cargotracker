@@ -190,6 +190,106 @@ app.get('/captains', function(req, res) {
     });
 });
 
+app.post('/captain', function(req, res) {
+    var post_firstname = req.body.post_firstname;
+    var post_lastname = req.body.post_lastname;
+    var post_rank = req.body.post_rank;
+    var post_planet = req.body.post_planet
+
+    axios.all([axios.post('http://127.0.0.1:5000/api/captain', {
+        firstname: post_firstname,
+        lastname: post_lastname,
+        rank: post_rank,
+        homeplanet: post_planet
+      }), axios.get('http://127.0.0.1:5000/api/captain')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var captainData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/captain_api', {
+            post_style: "block",
+            put_style: "none",
+            delete_style: "none",
+            message: message,
+            captain: captainData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/captain_api', {
+            post_style: "block",
+            put_style: "none",
+            delete_style: "none",
+            message: "Try again!",
+            captain: captainData
+        });
+    });
+}); 
+
+app.post('/captain_PUT', function(req, res) {
+    var id = req.body.put_id;
+    var firstname = req.body.put_firstname;
+    var lastname = req.body.put_lastname;
+    var rank = req.body.put_rank;
+    var homeplanet = req.body.put_planet;
+
+    axios.all([axios.put('http://127.0.0.1:5000/api/captain', {
+        id: id,
+        firstname: firstname,
+        lastname: lastname,
+        rank: rank,
+        homeplanet: homeplanet
+      }), axios.get('http://127.0.0.1:5000/api/captain')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var captainData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/captain_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: message,
+            captain: captainData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/captain_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: "Try again!",
+            captain: captainData
+        });
+    });
+});
+
+app.post('/captain_DELETE', function(req, res) {
+    var id = req.body.delete_id;
+
+    axios.all([axios.delete('http://127.0.0.1:5000/api/captain', { data: { id: id } 
+    }), axios.get('http://127.0.0.1:5000/api/captain')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var captainData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/captain_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: message,
+            captain: captainData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/captain_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: "Try again!",
+            captain: captainData
+        });
+    });
+});
+
 // SPACESHIP APIS
 app.get('/spaceships', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/spaceship')
@@ -198,6 +298,98 @@ app.get('/spaceships', function(req, res) {
 
         res.render('pages/spaceship_api', {
             ship: shipData
+        });
+    });
+});
+
+app.post('/spaceship', function(req, res) {
+    var maxweight = req.body.put_maxweight;
+    var captainid = req.body.put_captainid;
+
+    axios.all([axios.put('http://127.0.0.1:5000/api/spaceship', {
+        maxweight: maxweight,
+        captainid: captainid
+      }), axios.get('http://127.0.0.1:5000/api/spaceship')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var shipData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: message,
+            spaceship: shipData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: "Try again!",
+            spaceship: shipData
+        });
+    });
+});
+
+app.post('/spaceship_PUT', function(req, res) {
+    var id = req.body.put_id;
+    var maxweight = req.body.put_maxweight;
+    var captainid = req.body.put_captainid;
+
+    axios.all([axios.put('http://127.0.0.1:5000/api/spaceship', {
+        id: id,
+        maxweight: maxweight,
+        captainid: captainid,
+      }), axios.get('http://127.0.0.1:5000/api/spaceship')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var shipData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: message,
+            spaceship: shipData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "block",
+            delete_style: "none",
+            message: "Try again!",
+            spaceship: shipData
+        });
+    });
+});
+
+app.post('/spaceship_DELETE', function(req, res) {
+    var id = req.body.delete_id;
+
+    axios.all([axios.delete('http://127.0.0.1:5000/api/spaceship', { data: { id: id } 
+    }), axios.get('http://127.0.0.1:5000/api/spaceship')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var shipData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: message,
+            spaceship: shipData
+        });
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/spaceship_api', {
+            post_style: "none",
+            put_style: "none",
+            delete_style: "block",
+            message: "Try again!",
+            spaceship: shipData
         });
     });
 });
