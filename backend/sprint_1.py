@@ -84,6 +84,7 @@ def add_captain():
 def update_captain():
     request_data = request.get_json()
     id = request_data['id']
+    id = int(id)
     firstname = request_data['firstname']
     lastname = request_data['lastname']
     rank = request_data['rank']

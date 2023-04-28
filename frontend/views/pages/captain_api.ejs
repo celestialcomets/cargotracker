@@ -28,8 +28,92 @@
         <% } %>
      </table>
     </div>
-  </div>
+    <div id="POST">
+	    <div class="card mt-3">
+        <div class="card-header">
+          Add Captain
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= post_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/captains" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="post_firstname">First Name</label>
+              <input class="form-control" type="text" id="post_firstname" name="post_firstname" placeholder="Enter Captain's First Name" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="post_lastname" class="control-label col-sm-2">Last Name</label>
+              <input type="text" id="post_lastname" name="post_lastname" class="form-control" placeholder="Enter Captain's Last Name" required>
+            </div>
+            <div class="form-group">
+              <label for="post_rank" class="control-label col-sm-2">Rank</label>
+              <input type="text" id="post_rank" name="post_rank" class="form-control" placeholder="Enter Captain's Ranking" required>
+            </div>
+            <div class="form-group">
+              <label for="post_planet" class="control-label col-sm-2">Home Planet</label>
+              <input type="text" id="post_planet" name="post_planet" class="form-control" placeholder="Enter Captain's Home Planet" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Captain</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="PUT">
+      <div class="card mt-3">
+        <div class="card-header">
+          Update Captain
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= put_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/captains_PUT" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="put_id">ID</label>
+              <input class="form-control" type="number" id="put_id" name="put_id" placeholder="Enter Captain's ID" required autofocus>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="put_firstname">First Name</label>
+              <input class="form-control" type="text" id="put_firstname" name="put_firstname" placeholder="Enter Captain's First Name" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="put_lastname" class="control-label col-sm-2">Last Name</label>
+              <input type="text" id="put_lastname" name="put_lastname" class="form-control" placeholder="Enter Captain's Last Name" required>
+            </div>
+            <div class="form-group">
+              <label for="put_rank" class="control-label col-sm-2">Rank</label>
+              <input type="text" id="put_rank" name="put_rank" class="form-control" placeholder="Enter Captain's Ranking" required>
+            </div>
+            <div class="form-group">
+              <label for="put_planet" class="control-label col-sm-2">Home Planet</label>
+              <input type="text" id="put_planet" name="put_planet" class="form-control" placeholder="Enter Captain's Home Planet" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Captain</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="DELETE">
+      <div class="card mt-3">
+        <div class="card-header">
+          Delete Captain
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= delete_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/captains_DELETE" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="delete_id">Captain ID</label>
+              <input class="form-control" type="number" id="delete_id" name="delete_id" placeholder="Enter Captain's ID" required autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Delete Captain</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
 </main>
-
 </body>
 </html>

@@ -199,15 +199,19 @@ app.get('/captains', function(req, res) {
         let captainData = response.data;
 
         res.render('pages/captain_api', {
-            captain: captainData
+            captain: captainData,
+            message: null,
+            post_style: "none",
+            put_style: "none",
+            delete_style: "none"
         });
     });
 });
 
-// when a post request is pushed by submitting the action="/captain" form, the first name, last name, rank, and homeplanet
+// when a post request is pushed by submitting the action="/captains" form, the first name, last name, rank, and homeplanet
 // that was submitted through the form are sent to the captain post api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/captain', function(req, res) {
+app.post('/captains', function(req, res) {
     var post_firstname = req.body.post_firstname;
     var post_lastname = req.body.post_lastname;
     var post_rank = req.body.post_rank;
@@ -242,10 +246,10 @@ app.post('/captain', function(req, res) {
     });
 }); 
 
-// when a post request is pushed by submitting the action="/captain_PUT" form, the first name, last name, rank, and homeplanet
+// when a post request is pushed by submitting the action="/captains_PUT" form, the first name, last name, rank, and homeplanet
 // that was submitted through the form are sent to the captain put api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/captain_PUT', function(req, res) {
+app.post('/captains_PUT', function(req, res) {
     var id = req.body.put_id;
     var firstname = req.body.put_firstname;
     var lastname = req.body.put_lastname;
@@ -282,10 +286,10 @@ app.post('/captain_PUT', function(req, res) {
     });
 });
 
-// when a post request is pushed by submitting the action="/captain_DELETE" form, the id
+// when a post request is pushed by submitting the action="/captains_DELETE" form, the id
 // that was submitted through the form are sent to the captain delete api.
 // a message stating the status of the request is returned and rendered + unhidden on the screen.
-app.post('/captain_DELETE', function(req, res) {
+app.post('/captains_DELETE', function(req, res) {
     var id = req.body.delete_id;
 
     axios.all([axios.delete('http://127.0.0.1:5000/api/captain', { data: { id: id } 
@@ -322,7 +326,11 @@ app.get('/spaceships', function(req, res) {
         let shipData = response.data;
 
         res.render('pages/spaceship_api', {
-            ship: shipData
+            spaceship: shipData,
+            message: null,
+            post_style: "none",
+            put_style: "none",
+            delete_style: "none"
         });
     });
 });
