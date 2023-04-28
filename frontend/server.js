@@ -97,9 +97,6 @@ app.post('/cargo', function(req, res) {
             message: message,
             cargo: cargoData
         });
-        console.log(post_weight);
-        console.log(post_cargotype);
-        console.log(post_shipid);
         console.log(message);
     })).catch(function(error) {
         res.render('pages/cargo_api', {
@@ -111,17 +108,14 @@ app.post('/cargo', function(req, res) {
     });
 }); 
 
-function putData() {
-    let resultElement = document.getElementById("put_message");
-    resultElement.innerHTML = "";
-  
-    var id = document.getElementById("put_id").value;
-    var type = document.getElementById("put_type").value;
-    var weight = document.getElementById("put_weight").value;
-    var departure = document.getElementById("put_departure").value;
-    var arrival = document.getElementById("put_arrival").value;
-    var shipid = document.getElementById("put_ship").value;
-  
+app.post('/cargo_PUT', function(req, res) {
+    var id = req.body.put_id;
+    var type = req.body.put_type;
+    var weight = req.body.put_weight;
+    var departure = req.body.put_departure;
+    var arrival = req.body.put_arrival;
+    var shipid = req.body.put_shipid;
+
     axios.all([axios.put('http://127.0.0.1:5000/api/cargo', {
         id: id,
         cargotype: type,
@@ -140,9 +134,6 @@ function putData() {
             message: message,
             cargo: cargoData
         });
-        console.log(put_weight);
-        console.log(put_cargotype);
-        console.log(put_shipid);
         console.log(message);
     })).catch(function(error) {
         res.render('pages/cargo_api', {
@@ -152,7 +143,8 @@ function putData() {
             cargo: cargoData
         });
     });
-}  
+}); 
+
 
 // CAPTAIN APIS
 app.get('/captains', function(req, res) {

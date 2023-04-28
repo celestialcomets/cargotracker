@@ -277,14 +277,15 @@ def update_cargo():
     shipid = request_data['shipid']
     ships_list = []
 
+
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    
+   
     sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
     for i in range(len(ships)):
         ships_list.append(ships[i]["id"])
-    
+   
     if shipid in ships_list:
         sql = "select * from cargo"
         cargos = execute_read_query(connection, sql)
@@ -292,12 +293,12 @@ def update_cargo():
         for cargo in cargos:
             if cargo['shipid'] == shipid:
                 current_weight += cargo['weight']
-        
+       
         max_weight = 0
         for ship in ships:
             if ship['id'] == shipid:
                 max_weight = ship['maxweight']
-        
+       
         if max_weight - current_weight > weight:
             sql = "UPDATE cargo SET weight = '%s', cargotype = '%s', departure = '%s', arrival = '%s', shipid = '%s' WHERE id = '%s'" % (weight, cargotype, departure, arrival, shipid, id)
             execute_query(connection, sql)
@@ -305,7 +306,7 @@ def update_cargo():
         else:
             return f'Not enough cargo space on ship {shipid}'
     else:
-        return f'Spaceship {shipid} does not exist!'
+        return f'Spaceship {shipid} does not exist! (Put Version)'
 
 # this code uses the 'delete' method to allow users to delete cargo in cargo database by id.
 # information for the cargo to be deleted must be included in the body in this format:

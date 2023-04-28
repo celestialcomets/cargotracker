@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <title>Cargo APIs</title>
-  <script src="../../server.js"></script>
   <%- include('../partials/head'); %>
 </head>
 
@@ -14,7 +13,7 @@
 <main>
   <div class="jumbotron">
     <div id="GET">
-      <h4>All Cargo</h4>
+	    <h4>All Cargo</h4>
       <table class="table table-striped">
         <tr>
            <th>ID</th><th>Weight</th><th>Cargo Type</th><th>Departure</th><th>Arrival</th><th>Ship ID</th>
@@ -27,69 +26,79 @@
             <td><%= cargo[i].departure %></td>
             <td><%= cargo[i].arrival %></td>
             <td><%= cargo[i].shipid %></td>
-          </tr>   
+          </tr>  
         <% } %>
      </table>
-     <div class="container">
-     <div class="row">
-     <class="col-sm-6" id="POST"></div>
-        <h4>Add New Cargo</h4>
-        <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= post_style %>;">
+    </div>
+    <div id="POST">
+	    <div class="card mt-3">
+        <div class="card-header">
+          Add Cargo
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= post_style %>;">
           <%= message %>
         </div>
-        <form action="/cargo" class="form-horizontal" method="POST">
-          <div class="form-group">
+        <div class="card-body">
+          <form action="/cargo" class="form-horizontal" method="POST">
+            <div class="form-group">
               <label class="control-label col-sm-2" for="post_weight">Cargo Weight</label>
-              <div class="col-sm-10">
-                <input class="form-control" type="number" id="post_weight" name="post_weight" placeholder="Enter Cargo Weight" required autofocus>
-              </div>
-          </div>
-          <div class="form-group">
-            <label for="post_type" class="control-label col-sm-2">Cargo Type</label>
-            <div class="col-sm-10">
+              <input class="form-control" type="number" id="post_weight" name="post_weight" placeholder="Enter Cargo Weight" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="post_type" class="control-label col-sm-2">Cargo Type</label>
               <input type="text" id="post_type" name="post_type" class="form-control" placeholder="Enter Cargo Type" required>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="post_ship" class="control-label col-sm-2">Ship ID</label>
-            <div class="col-sm-10">
+            <div class="form-group">
+              <label for="post_ship" class="control-label col-sm-2">Ship ID</label>
               <input type="text" id="post_ship" name="post_ship" class="form-control" placeholder="Enter Ship ID" required>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-        </form>
-     </div>
-     <div class="card mt-3">
-      <div class="card-header">Update Cargo</div>
-      <div class="card-body">
-        <div class="form-group">
-          <input type="number" class="form-control" id="put_id" placeholder="Id">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="put_type" placeholder="Title">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="put_weight" placeholder="Description">
-        </div>
-        <div class="form-group">
-          <input type="date" class="form-control" id="put_departure" placeholder="Departure">
-        </div>
-        <div class="form-group">
-          <input type="date" class="form-control" id="put_arrival" placeholder="Arrival">
-        </div>
-        <div class="form-group">
-          <input type="number" class="form-control" id="put_ship" placeholder="Ship ID">
-        </div>
-        <div class="form-group mt-2">
-          <button class="btn btn-sm btn-primary" onclick="putData()">Update Data</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
     </div>
-  </div>
+    <div id="PUT">
+      <div class="card mt-3">
+        <div class="card-header">
+          Update Cargo
+        </div>
+		    <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= put_style %>;">
+          <%= message %>
+        </div>
+        <div class="card-body">
+          <form action="/cargo_PUT" class="form-horizontal" method="POST">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="put_id">Cargo ID</label>
+              <input class="form-control" type="number" id="put_id" name="put_id" placeholder="Enter Cargo ID" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="put_type" class="control-label col-sm-2">Cargo Type</label>
+              <input type="text" id="put_type" name="put_type" class="form-control" placeholder="Enter Cargo Type" required>
+            </div>
+            <div class="form-group">
+              <label for="put_weight" class="control-label col-sm-2">Cargo Weight</label>
+              <input type="text" id="put_weight" name="put_weight" class="form-control" placeholder="Enter Cargo Weight" required>
+            </div>
+            <div class="form-group">
+              <label for="put_departure" class="control-label col-sm-2">Departure Date</label>
+              <input type="date" id="put_departure" name="put_departure" class="form-control" placeholder="Enter Departure Date" required>
+            </div>
+            <div class="form-group">
+              <label for="put_arrival" class="control-label col-sm-2">Arrival Date</label>
+              <input type="date" id="put_arrival" name="put_arrival" class="form-control" placeholder="Enter Arrival Date">
+            </div>
+            <div class="form-group">
+              <label for="put_shipid" class="control-label col-sm-2">Ship ID</label>
+              <input type="number" id="put_shipid" name="put_shipid" class="form-control" placeholder="Enter Ship ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="DELETE">
+    </div>
+</div>
 </main>
 </body>
 </html>
