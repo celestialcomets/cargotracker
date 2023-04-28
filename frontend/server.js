@@ -39,7 +39,7 @@ app.post('/process_login', function(req, res){
         
         // if login was successful, loads cargo page with data from cargo get api
         // and sends success message to console.
-        res.render('pages/current_cargo', {
+        res.redirect('pages/current_cargo', {
             cargo: cargoData,
         });
         console.log('Authenticated');
@@ -51,6 +51,7 @@ app.post('/process_login', function(req, res){
     });
 });
 
+// home link in the navbar leads here, same page as the current_cargo after logging in.
 app.get('/home', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/cargo')
     .then((response)=>{
@@ -63,6 +64,8 @@ app.get('/home', function(req, res) {
 });
 
 // CARGO APIS
+// when a get request is pushed, the data from our get_all_cargo() from the backend
+// is returned into cargoData and rendered on the table on the cargo page
 app.get('/cargo', function(req, res) {
     axios.get('http://127.0.0.1:5000/api/cargo')
     .then((response)=>{
@@ -78,6 +81,9 @@ app.get('/cargo', function(req, res) {
     });
 });
 
+// when a post request is pushed by submittimg the post form, the weight, cargotype, and shipid
+// that was submitted through the form are sent to the cargo post api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo', function(req, res) {
     var post_weight = req.body.post_weight;
     var post_cargotype = req.body.post_type;
@@ -111,6 +117,9 @@ app.post('/cargo', function(req, res) {
     });
 }); 
 
+// when a post request is pushed by submittimg the put form, the id, weight, cargotype, departure, arrival and shipid
+// that was submitted through the form are sent to the cargo put api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo_PUT', function(req, res) {
     var id = req.body.put_id;
     var type = req.body.put_type;
@@ -150,6 +159,9 @@ app.post('/cargo_PUT', function(req, res) {
     });
 }); 
 
+// when a post request is pushed by submittimg the delete form, the id
+// that was submitted through the form are sent to the cargo put api.
+// a message stating the status of the request is returned and rendered + unhidden on the screen.
 app.post('/cargo_DELETE', function(req, res) {
     var id = req.body.delete_id;
 
