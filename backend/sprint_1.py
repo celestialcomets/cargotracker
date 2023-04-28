@@ -272,11 +272,14 @@ def add_cargo():
 def update_cargo():
     request_data = request.get_json()
     id = request_data['id']
+    id = int(id)
     cargotype = request_data['cargotype']
     weight = request_data['weight']
+    weight = int(weight)
     departure = request_data['departure']
     arrival = request_data['arrival']
     shipid = request_data['shipid']
+    shipid = int(shipid)
     ships_list = []
 
 
