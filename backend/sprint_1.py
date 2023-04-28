@@ -226,12 +226,12 @@ def add_cargo():
     cargotype = request_data['cargotype']
     shipid = request_data['shipid']
     ships_list = []
-
+    
     myCreds = creds.Creds()
     connection = create_con(myCreds.connectionstring, myCreds.username, myCreds.passwd, myCreds.dataBase)
-    
     sql = "select * from spaceship"
     ships = execute_read_query(connection, sql)
+    
     for i in range(len(ships)):
         ships_list.append(ships[i]["id"])
     
@@ -242,21 +242,18 @@ def add_cargo():
         for cargo in cargos:
             if cargo['shipid'] == shipid:
                 current_weight += cargo['weight']
-        
         max_weight = 0
         for ship in ships:
             if ship['id'] == shipid:
                 max_weight = ship['maxweight']
-        
         if max_weight - current_weight > weight:
             sql = "insert into cargo(weight, cargotype, shipid) values ('%s','%s','%s')" % (weight, cargotype, shipid)
             execute_query(connection, sql)
             return 'New Cargo Added!'
         else:
-            return f'Not enough cargo space on ship {shipid}'
+            return 'Not enough cargo space on ship {shipid}!'
     else:
         return f'Spaceship {shipid} does not exist!'
-    
 
 # this code uses the 'put' method to allow users to update cargo if an existing spaceship has room for it
 # if the updated cargo exceeds the desired spaceship's max weight capacity, the user will receive a notification

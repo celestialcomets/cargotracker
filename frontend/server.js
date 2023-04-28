@@ -69,10 +69,44 @@ app.get('/cargo', function(req, res) {
         let cargoData = response.data;
 
         res.render('pages/cargo_api', {
-            cargo: cargoData
+            message: null,
+            cargo: cargoData,
+            style: "none"
         });
     });
 });
+
+app.post('/cargo', function(req, res) {
+    var post_weight = req.body.post_weight;
+    var post_cargotype = req.body.post_type;
+    var post_shipid = req.body.post_ship;
+
+    axios.all([axios.post('http://127.0.0.1:5000/api/cargo', {
+        weight: post_weight,
+        cargotype: post_cargotype,
+        shipid: post_shipid
+      }), axios.get('http://127.0.0.1:5000/api/cargo')])
+    .then(axios.spread((firstResponse, secondResponse) => {  
+        var cargoData = secondResponse.data;
+        var message = firstResponse.data;
+
+        res.render('pages/cargo_api', {
+            style: "block",
+            message: message,
+            cargo: cargoData
+        });
+        console.log(post_weight);
+        console.log(post_cargotype);
+        console.log(post_shipid);
+        console.log(message);
+    })).catch(function(error) {
+        res.render('pages/cargo_api', {
+            style: "block",
+            message: "Try again!",
+            cargo: cargoData
+        });
+    });
+}); 
 
 // CAPTAIN APIS
 app.get('/captains', function(req, res) {

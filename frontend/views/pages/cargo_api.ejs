@@ -12,7 +12,7 @@
 <body class="container">
 <main>
   <div class="jumbotron">
-    <div id="current">
+    <div id="GET">
       <h4>All Cargo</h4>
       <table class="table table-striped">
         <tr>
@@ -29,9 +29,47 @@
           </tr>   
         <% } %>
      </table>
+     <div id="put">
+     <form class="form-horizontal" action="/cargo" method="POST">
+      <div class="container" id="POST">
+        <h4>Add New Cargo</h4>
+        <div id="post_message" class="container p-3 my-3 bg-primary text-white" style="display: <%= style %>;">
+          <%= message %>
+        </div>
+        <form action="/cargo" class="form-horizontal" method="POST">
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="post_weight">Cargo Weight</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="number" id="post_weight" name="post_weight" placeholder="Enter Cargo Weight" required autofocus>
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="post_type" class="control-label col-sm-2">Cargo Type</label>
+            <div class="col-sm-10">
+              <input type="text" id="post_type" name="post_type" class="form-control" placeholder="Enter Cargo Type" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="post_ship" class="control-label col-sm-2">Ship ID</label>
+            <div class="col-sm-10">
+              <input type="text" id="post_ship" name="post_ship" class="form-control" placeholder="Enter Ship ID" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+     </div>
+     <div id="PUT">
+      <p>put method</p>
+     </div>
+     <div id="DELETE">
+      <p>delete method</p>
+     </div>
     </div>
   </div>
 </main>
-
 </body>
 </html>
